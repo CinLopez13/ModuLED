@@ -1,7 +1,7 @@
 El modulo MAX7219 viene con un display 8x8 para usar. 
 El objetivo es poder hacer esa matriz 8x8 (En realidad 8x7) pero con el panel que ya tenemos 
 
-![Display8x8](docs/img/Led8x8_Connection.jpg)
+![Display8x8](../docs/img/Led8x8_Connection.jpg)
 
 
 
