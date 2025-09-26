@@ -3,7 +3,9 @@ El objetivo es poder hacer esa matriz 8x8 (En realidad 8x7) pero con el panel qu
 
 ![Display8x8](../docs/img/Led8x8_Connection.jpg)
 
+Se conectan al arduino VCC-GND-DIN-CS-CLK  Los pines donde esta DOUT son para conectar varios modulos 
 
+![Arduino](../docs/img/Conexion_Arduino.jpg)
 
 Links de referencias para como utilizar el modulo MAX7219 
 
