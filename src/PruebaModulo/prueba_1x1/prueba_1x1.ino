@@ -1,46 +1,47 @@
-#include <LedControl.h>
+#include <LedControl.h> // Librería para controlar el MAX7219
 
-// Définition des broches de raccordement Arduino Nano → Matrice LED pilotée par MAX7219
-#define brocheDeSelection               10        // Sortie D10 de l'Arduino (/SS)  vers la broche CS  de la matrice LED
-#define brochePourLesDonnees            11        // Sortie D11 de l'Arduino (MOSI) vers la broche DIN de la matrice LED
-#define brochePourLhorloge              13        // Sortie D13 de l'Arduino (SCK)  vers la broche CLK de la matrice LED
-
-// Définition des autres "constantes"
-#define nombreDeMatricesLedRaccordees   1         // Nombre pouvant aller de 1 à 8 (nombre maxi de matrice led pilotable ici)
-#define adress              0         // Pour les 8 matrices max évoquées ci-dessus, leurs index respectifs (adresses) vont de 0 à 7
-#define delaiAllumageLed                100       // Temps de maintien d'allumage LED, exprimé en millisecondes
-
-// Instanciation de celle-ci
-LedControl matriceLed = LedControl(brochePourLesDonnees, brochePourLhorloge, brocheDeSelection, nombreDeMatricesLedRaccordees);
+// Definición de los pines entre el Arduino y el módulo MAX7219
+#define PIN_CLK  7   // Pin D13 del Arduino (SCK) → pin CLK del módulo
+#define PIN_CS   6   // Pin D10 del Arduino (CS o LOAD) → pin CS del módulo
+#define PIN_DIN  5   // Pin D11 del Arduino (MOSI) → pin DIN del módulo
 
 
-// ========================
-// Initialisation programme
-// ========================
+// Configuración del módulo
+#define NUM_MODULOS   1   // Número de matrices (puede ir de 1 a 8)
+#define DIRECCION     0   // Dirección del módulo (si hay varios en cascada)
+#define TIEMPO_LED   100  // Tiempo que cada LED se mantiene encendido (ms)
+
+// Creación del objeto que controla el módulo (parámetros: DIN, CLK, CS, número de módulos)
+LedControl matrizLed = LedControl(PIN_DIN, PIN_CLK, PIN_CS, NUM_MODULOS);
+
+// =========================
+// Función de inicialización
+// =========================
 void setup() {
+  // Activamos el módulo (false = modo normal, true = modo ahorro)
+  matrizLed.shutdown(DIRECCION, false);
 
-  // Initialisation de la matrice LED
-  matriceLed.shutdown(adress, false);       // shutdown     : "true" active le mode "sommeil", tandis que "false" active le mode "normal"
-  matriceLed.setIntensity(adress, 5);       // setIntensity : valeur pouvant aller de 0 à 15 (pour 16 niveaux de luminosité, donc)
-  matriceLed.clearDisplay(adress);          // clearDisplay : éteint toutes les LEDs de la matrice
-  
+  // Brillo de la matriz (0 a 15)
+  matrizLed.setIntensity(DIRECCION, 5);
+
+  // Apaga todos los LEDs antes de empezar
+  matrizLed.clearDisplay(DIRECCION);
 }
 
 // =================
-// Boucle principale
+// Bucle principal
 // =================
 void loop() {
 
-  // *********************
-  // Chenillard
-  // *********************
-
-  for(int row = 0; row < 8; row++) {                              // Parcours des 8 rows de la matrice LED
-    for(int column = 0; column < 8; column++) {                          // Parcours des 8 columns de la matrice LED
-      matriceLed.setLed(adress, row, column, true);              // Allumage de la LED située à la position row/column
-      delay(delaiAllumageLed);                                                  // Maintien de cette LED allumée, un certain temps
-      matriceLed.setLed(adress, row, column, false);             // Et extinction de cette LED, avant passage à la led suivante
+  // ***************
+  // Efecto barrido
+  // ***************
+  // Recorre todas las filas y columnas encendiendo un LED a la vez
+  for (int fila = 0; fila < 8; fila++) {        // Recorre las 8 filas
+    for (int columna = 0; columna < 7; columna++) {  // Recorre las 8 columnas
+      matrizLed.setLed(DIRECCION, fila, columna, true);   // Enciende el LED (fila, columna)
+      delay(TIEMPO_LED);                                  // Espera un momento
+      matrizLed.setLed(DIRECCION, fila, columna, false);  // Apaga ese LED antes de pasar al siguiente
     }
   }
-  
 }

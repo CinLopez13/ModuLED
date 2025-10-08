@@ -1,8 +1,8 @@
 #include <LedControl.h>
 
-#define PIN_DIN 11
-#define PIN_CLK 13 
-#define PIN_CS 10
+#define PIN_CLK  7   // Pin D13 del Arduino (SCK) → pin CLK del módulo
+#define PIN_CS   6   // Pin D10 del Arduino (CS o LOAD) → pin CS del módulo
+#define PIN_DIN  5   // Pin D11 del Arduino (MOSI) → pin DIN del módulo
 
 #define adress 0
 
