@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.6,
-          "height": 1.4,
-          "width": 0.9
+          "drill": 0.8,
+          "height": 1.27,
+          "width": 2.54
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -440,7 +440,6 @@
       "single_global_label": "ignore",
       "unannotated": "error",
       "unconnected_wire_endpoint": "warning",
-      "undefined_netclass": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
       "wire_dangling": "error"
@@ -451,7 +450,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "ModuLED.kicad_pro",
+    "filename": "ModuLED_inicial.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -609,11 +608,6 @@
     "subpart_first_id": 65,
     "subpart_id_separator": 0
   },
-  "sheets": [
-    [
-      "242e3081-1c58-4ea6-a0e0-1e9e9f46f3f1",
-      "Root"
-    ]
-  ],
+  "sheets": [],
   "text_variables": {}
 }
